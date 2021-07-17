@@ -1,0 +1,5 @@
+name: Dnum
+version: ${project.version}
+main: net.maploop.dnum.Dnum
+authors: [ Maploop ]
+description: Awesome plugin made with the Dnum framework!
