@@ -14,10 +14,7 @@ import net.swofty.lobby.listener.*;
 import net.swofty.lobby.manager.PlayerManager;
 import net.swofty.lobby.npc.NPC;
 import net.swofty.lobby.npc.NPCRegistery;
-import net.swofty.lobby.npc.npcs.DeliveryManNPC;
-import net.swofty.lobby.npc.npcs.ExampleNPC;
-import net.swofty.lobby.npc.npcs.HytaleNPC;
-import net.swofty.lobby.npc.npcs.SkyblockNPC;
+import net.swofty.lobby.npc.npcs.*;
 import net.swofty.lobby.util.DLog;
 import net.swofty.lobby.util.Runnable;
 import net.swofty.lobby.util.Util;
@@ -65,7 +62,7 @@ public final class Loader extends JavaPlugin {
         DLog.info("Loading commands...");
         loadCommands();
         loadNpcs();
-        startNPCScheduler();
+        new NPC.DespawnPreventer().start();
         DLog.info("Loading listeners...");
         loadListeners();
 
@@ -95,29 +92,7 @@ public final class Loader extends JavaPlugin {
         nr.register(new HytaleNPC());
         nr.register(new SkyblockNPC());
         nr.register(new DeliveryManNPC());
-    }
-
-    public BukkitTask startNPCScheduler() {
-        return new BukkitRunnable() {
-            @Override
-            public void run() {
-                Bukkit.getOnlinePlayers().forEach(player -> {
-                    for (NPC npc : NPC.getNpcs()) {
-                        if (player.getWorld().getName() != npc.getLocation().getWorld().getName()) continue;
-
-                        if (npc.getLocation().distance(player.getLocation()) > 100) {
-                            npc.despawn(player);
-                            NPCRegistery.idfk.put(player.getName() + "_" + npc.getParameters().idname(), false);
-                        } else {
-                            if (NPCRegistery.idfk.get(player.getName() + "_" + npc.getParameters().idname())) return;
-                            npc.despawn(player);
-                            Bukkit.getScheduler().runTaskLater(Loader.getInstance(), () -> npc.spawn(player), 5);
-                            NPCRegistery.idfk.put(player.getName() + "_" + npc.getParameters().idname(), true);
-                        }
-                    }
-                });
-            }
-        }.runTaskTimer(this, 0, 20);
+        nr.register(new TutorialNPC());
     }
 
     @Override
@@ -147,6 +122,8 @@ public final class Loader extends JavaPlugin {
         m.registerEvents(new PlayerMoveEvent(), this);
         m.registerEvents(new LobbyEvents(), this);
         m.registerEvents(new ItemInteractEvent(), this);
+        m.registerEvents(new CommandPreProcess(), this);
+        m.registerEvents(new PlayerChatEvent(), this);
     }
 
     public void LuckpermsListener() {

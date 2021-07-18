@@ -39,7 +39,7 @@ public class PlayerScoreboard {
                 @Override
                 public void run() {
                     for (int i = 0; i < lines.length; i++) {
-                        objective.getScore(Util.colorize(lines[i].replace("%%space%%", buildSpace()))).setScore(-i);
+                        objective.getScore(Util.colorize(lines[i].replace("%%space%%", buildSpace()))).setScore(i);
                     }
 
                     target.setScoreboard(board);
@@ -47,7 +47,7 @@ public class PlayerScoreboard {
             }.runTaskTimer(Loader.getInstance(), startDelay, refreshRate);
         } else {
             for (int i = 0; i < lines.length; i++) {
-                objective.getScore(Util.colorize(lines[i].replace("%%space%%", buildSpace()))).setScore(-i);
+                objective.getScore(Util.colorize(lines[i].replace("%%space%%", buildSpace()))).setScore(i);
             }
 
             target.setScoreboard(board);
@@ -56,15 +56,15 @@ public class PlayerScoreboard {
 
     private String buildSpace() {
         int spaces = 1;
-        StringBuilder built = new StringBuilder();
+        String built = "&c";
         for (String line : lines) {
             if (line.contains("%%space%%")) {
                 spaces++;
             }
         }
         for (int i = 0; i < spaces; ++i) {
-            built.append(" ");
+            built += "&c";
         }
-        return built.toString();
+        return built;
     }
 }

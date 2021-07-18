@@ -7,7 +7,7 @@ import net.swofty.lobby.npc.NPCParameters;
 import net.swofty.lobby.util.BookGUI;
 
 @NPCParameters(
-        idname = "npc_delivery",
+        idname = "[NPC] Delivery-Man",
         name = "§7",
         id = 4,
         signature = "ZwRL3NpYX8hGxzxwB4Fd/agijK34sBiR62lecprwSQ6G+L6YDx4sJJv2cZ0Y+VHI0KA/Y14MCd3G+vPU/l/Crcr3zL6qyaGesf7ky6lToLpXmPWva872DTLhPR9RRuvx9tdw8fxSAX+kKI0tfWKUSEiY5OnIUOd2YjqdRGQqQEGC9gDE837WHxNyllBwpT0qodJwUR0XKM6Nhx4xV9Z57I6IYxhRhj85a7kOcjZUzr51Hyik3rIruXtS7Y1bqKZMtqj3t2/LvsKeMW27BsSZIyURuAUt/oeJ18dAepo+joHgkqR4USHH6bcc/kpXFroAd7QtW/bzgdymYaX38i25N3S+QYpV8e9Vl59FYzych/v1vJFcuKt4BCIzBn2Lox3RajTRfnTfCfb/bT8Tge/U0EiG3bPT1ZfmDXuSan9GGu2WBhW9P0qT+xQb2U+BEOlAONkW7F4MtRUaCNEAaetYJvev70zHkWfJN44vxNKda+XHoCquUZCD2vBSauXOIaMugdQLH+bgP9vTpdhOSDRojlnH3CoVHkWPK/gQyAiYl/dhUyHUtzkRM6yESwEPosYZb3l8VOiAnetbS4iKw8BpMRtNE/HrRhT1rc/djL6g+tmbAtpKH5vXlhxf1UT0E1AySYxxikUgdF5DqolWGbZ8sk5D8Zz40DdmQyZEBSuZOtk=",

@@ -1,9 +1,12 @@
 package net.swofty.lobby.util;
 
+import com.comphenix.protocol.PacketType;
 import net.swofty.lobby.Data;
 import net.swofty.lobby.Loader;
 import net.swofty.lobby.manager.PlayerManager;
+import net.swofty.lobby.npc.npcs.TutorialNPC;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -23,6 +26,21 @@ public class Runnable {
         new BukkitRunnable() {
             @Override
             public void run() {
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "weather clear");
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "time set day");
+
+                Bukkit.broadcastMessage(" ");
+                Bukkit.broadcastMessage("§4[WATCHDOG ANNOUNCEMENT]");
+                Bukkit.broadcastMessage("Watchdog has banned §c§l0 §rplayers in the last 7 days.");
+                Bukkit.broadcastMessage("Staff have banned an additional §c§l0 §rin the last 7 days.");
+                Bukkit.broadcastMessage("§cBlacklisted modifications are a bannable offense!");
+                Bukkit.broadcastMessage(" ");
+            }
+        }.runTaskTimer(Loader.getInstance(), 1200, 3600);
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
 
                 for (Player player : Bukkit.getOnlinePlayers()) {
 
@@ -31,7 +49,12 @@ public class Runnable {
                         Objective objective = scoreboard.registerNewObjective("Test", "Dummy");
 
                         objective.getScore(Util.colorize(" ")).setScore(9);
-                        objective.getScore(Util.colorize("Rank: " + new PlayerManager(player).getRankPrefix().replace("[", "").replace("]", ""))).setScore(8);
+
+                        if (new PlayerManager(player).getRank().equals("default")) {
+                            objective.getScore(Util.colorize("Rank: &7Default")).setScore(8);
+                        } else {
+                            objective.getScore(Util.colorize("Rank: " + new PlayerManager(player).getRankPrefix().replace("[", "").replace("]", ""))).setScore(8);
+                        }
                         objective.getScore(Util.colorize("Mystery Dust: &a" + Data.getData(player, "mystery-dust"))).setScore(7);
                         objective.getScore(Util.colorize("Achievements: &a" + Data.getData(player, "achievements"))).setScore(6);
                         objective.getScore(Util.colorize("Level: &a" + Data.getData(player, "level"))).setScore(5);
@@ -47,13 +70,32 @@ public class Runnable {
                         objective.setDisplayName(Util.colorize("&e&lHYPIXEL"));
                         player.setScoreboard(scoreboard);
                 }
-
             }
-        }.runTaskTimer(Loader.getInstance(), 0, 20);
+        }.runTaskTimer(Loader.getInstance(), 0, 40);
 
         new BukkitRunnable() {
             @Override
             public void run() {
+
+                for (Player player : TutorialNPC.tutorial1) {
+                    player.teleport(new Location(Bukkit.getWorld("world"), 22.5, 87.7, 12, 72, 0));
+                }
+
+                for (Player player : TutorialNPC.tutorial2) {
+                    player.teleport(new Location(Bukkit.getWorld("world"), 20, 85, 31, 130, 20));
+                }
+
+                for (Player player : TutorialNPC.tutorial3) {
+                    player.teleport(new Location(Bukkit.getWorld("world"), 20.5, 80, 4.5, -180, 0));
+                }
+
+                for (Player player : TutorialNPC.tutorial4) {
+                    player.teleport(new Location(Bukkit.getWorld("world"), 21, 90, 22.5, 90, 90));
+                }
+
+                for (Player player : TutorialNPC.tutorial5) {
+                    player.teleport(new Location(Bukkit.getWorld("world"), 38.5, 87, 22.5, 90, 0));
+                }
 
                 for (Player player : Bukkit.getOnlinePlayers()) {
 
@@ -143,6 +185,6 @@ public class Runnable {
 
                 }
             }
-        }.runTaskTimerAsynchronously(Loader.getInstance(), 0, 4);
+        }.runTaskTimerAsynchronously(Loader.getInstance(), 0, 6);
     }
 }

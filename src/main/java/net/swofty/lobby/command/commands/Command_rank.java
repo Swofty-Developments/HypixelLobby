@@ -7,7 +7,7 @@ import net.swofty.lobby.manager.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-@CommandParameters(usage = "/<command> <args>", permission = "rank.admin", description = "Set a players rank", inGameOnly = true)
+@CommandParameters(usage = "/<command> <args>", permission = "rank.admin", description = "Set a players rank")
 public class Command_rank extends AbstractCommand {
     @Override
     public void run(CommandSource sender, String[] args) {
@@ -26,41 +26,41 @@ public class Command_rank extends AbstractCommand {
         switch (args[1]) {
             case "default":
                 new PlayerManager(target).setRank("default");
-                send("&aSuccessfully set " + sender.getPlayer().getName() + "'s rank to " + args[1].toUpperCase());
+                send("&aSuccessfully set " + target.getName() + "'s rank to " + args[1].toUpperCase());
                 return;
 
             case "vip":
                 new PlayerManager(target).setRank("vip");
-                send("&aSuccessfully set " + sender.getPlayer().getName() + "'s rank to " + args[1].toUpperCase());
+                send("&aSuccessfully set " + target.getName() + "'s rank to " + args[1].toUpperCase());
                 return;
 
             case "vip+":
                 new PlayerManager(target).setRank("vip+");
-                send("&aSuccessfully set " + sender.getPlayer().getName() + "'s rank to " + args[1].toUpperCase());
+                send("&aSuccessfully set " + target.getName() + "'s rank to " + args[1].toUpperCase());
                 return;
 
             case "mvp+":
                 new PlayerManager(target).setRank("mvp+");
-                send("&aSuccessfully set " + sender.getPlayer().getName() + "'s rank to " + args[1].toUpperCase());
+                send("&aSuccessfully set " + target.getName() + "'s rank to " + args[1].toUpperCase());
                 return;
 
             case "mvp++":
                 new PlayerManager(target).setRank("mvp++");
-                send("&aSuccessfully set " + sender.getPlayer().getName() + "'s rank to " + args[1].toUpperCase());
+                send("&aSuccessfully set " + target.getName() + "'s rank to " + args[1].toUpperCase());
                 return;
 
             case "helper":
                 new PlayerManager(target).setRank("helper");
-                send("&aSuccessfully set " + sender.getPlayer().getName() + "'s rank to " + args[1].toUpperCase());
+                send("&aSuccessfully set " + target.getName() + "'s rank to " + args[1].toUpperCase());
                 return;
 
             case "mod":
                 new PlayerManager(target).setRank("mod");
-                send("&aSuccessfully set " + sender.getPlayer().getName() + "'s rank to " + args[1].toUpperCase());
+                send("&aSuccessfully set " + target.getName() + "'s rank to " + args[1].toUpperCase());
                 return;
 
             case "admin":
-                send("&aSuccessfully set " + sender.getPlayer().getName() + "'s rank to " + args[1].toUpperCase());
+                send("&aSuccessfully set " + target.getName() + "'s rank to " + args[1].toUpperCase());
                 new PlayerManager(target).setRank("admin");
                 return;
         }

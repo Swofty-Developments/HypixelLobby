@@ -13,7 +13,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 @NPCParameters(
-        idname = "npc_skyblock",
+        idname = "[NPC] Skyblock",
         name = "§e0 Playing",
         id = 3,
         signature = "XlI+W3ye+8a1kOQLxIgXUmI4vdZ5A9kJ8MyVbDMy/BOb9iN/L/PPwmwl9iT7gYKFaWd+/6m+9byDZLtrTkJGkse/GT+j9ubLeVw41eAlGT5esttrxG2BA9FGDRBkFIsAyptCoUg+81xcLTT1y3KKeLOshpbNel4ZTH89OGljA5j1LhVO6oM6ZOowYa4RsFPnuu5A0VKlukRG9zZmB3zExJljb50PuRhhavsNSOHEVSO0zEzBYI09EmXt7G+zKf/QXvhuQJiEOuYVL2Fmzhye3hbD5s/tLcQuCqz7k/yxnTxTkPpBi5vd+7T2gaNrWHEir8bzqwoFqP03xOKAC2ia1w6/bvobuqso3zGRH3veAAHKyh12xmWJcpywo2026b4Pwog1dHV3jcesRl6GisnZFXaHyTgMg4T3B0LCQkWsZoE41USDAhVC0+E8+lxtJYTZEyUtWM3MMJNXWROjQRNh4e35Jwipqk9YLmfdXoDYj6YytMTO4YGwmlEgqeFbpcjnSia6CF7vs4jemWoqoYKGdih5Id4PIBOJd55Ij47HS1WOt7apQHEtFRWPMW/URr0fHUCYELpVAPEhOh6jqfnwFJZJhZh/p/MyXP5kaVjWiXD5CmTl0Ujo5U5fHmmTbMrU78suUX6pSibZDSfYs9bIYaZLD7BYbbTW4xPYPqykiEI=",

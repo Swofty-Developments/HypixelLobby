@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import lombok.Getter;
 import net.swofty.lobby.Loader;
+import net.swofty.lobby.util.DLog;
 import net.swofty.lobby.util.Util;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
@@ -27,6 +28,11 @@ public abstract class NPC extends Reflections {
     private final String texture;
     private final String signature;
     private PacketPlayOutNamedEntitySpawn spawnPacket;
+
+    private PacketPlayOutAnimation animationPacket;
+
+    private int stand1id;
+    private int stand2id;
 
     private static final ArrayList<NPC> npcs = new ArrayList<>();
 
@@ -86,9 +92,18 @@ public abstract class NPC extends Reflections {
         sendPacket(packet, player);
     }
 
+    public void spawnStands() {
+        Location loc = getLocation();
+
+    }
+
+    public void despawnStands(int id) {
+
+    }
+
     public void addToTablist(Player player) {
         PacketPlayOutPlayerInfo packet = new PacketPlayOutPlayerInfo();
-        PacketPlayOutPlayerInfo.PlayerInfoData data = packet.new PlayerInfoData(gameprofile, 1, WorldSettings.EnumGamemode.NOT_SET, CraftChatMessage.fromString("")[0]);
+        PacketPlayOutPlayerInfo.PlayerInfoData data = packet.new PlayerInfoData(gameprofile, 1, WorldSettings.EnumGamemode.NOT_SET, CraftChatMessage.fromString("§8" + this.getParameters().idname())[0]);
         @SuppressWarnings("unchecked")
         List<PacketPlayOutPlayerInfo.PlayerInfoData> players = (List<PacketPlayOutPlayerInfo.PlayerInfoData>) getValue(packet, "b");
         players.add(data);
@@ -101,7 +116,7 @@ public abstract class NPC extends Reflections {
 
     public void rmvFromTablist(Player player) {
         PacketPlayOutPlayerInfo packet = new PacketPlayOutPlayerInfo();
-        PacketPlayOutPlayerInfo.PlayerInfoData data = packet.new PlayerInfoData(gameprofile, 1, WorldSettings.EnumGamemode.NOT_SET, CraftChatMessage.fromString("")[0]);
+        PacketPlayOutPlayerInfo.PlayerInfoData data = packet.new PlayerInfoData(gameprofile, 1, WorldSettings.EnumGamemode.NOT_SET, CraftChatMessage.fromString("§8" + this.getParameters().idname())[0]);
         @SuppressWarnings("unchecked")
         List<PacketPlayOutPlayerInfo.PlayerInfoData> players = (List<PacketPlayOutPlayerInfo.PlayerInfoData>) getValue(packet, "b");
         players.add(data);
@@ -145,6 +160,40 @@ public abstract class NPC extends Reflections {
 
     public int getEntityID() {
         return entityID;
+    }
+
+    public static final class DespawnPreventer {
+
+        // Method for checking if player is seeing NPCs or not.
+        // If yes, we don't do anything, if not, we de-spawn and then re-spawn the NPCs
+        public void start() {
+            // Starting a scheduler every 20 ticks (1 second)
+            Bukkit.getScheduler().runTaskTimer(Loader.getInstance(), () -> {
+                // Getting all online players and functioning these for each one of them.
+                Bukkit.getOnlinePlayers().forEach(player -> {
+                    // Getting all NPCs
+                    for (NPC npc : NPC.getNpcs()) {
+                        if (npc.getLocation().distance(player.getLocation()) >= 60) {
+                            npc.despawn(player);
+
+                            // Player HashMap for checking if the player is looking at a npc.
+                            NPCRegistery.idfk.put(player.getName() + "_" + npc.getParameters().idname(), false);
+                        } else {
+                            // If player is already looking at the NPC we return.
+                            if (NPCRegistery.idfk.get(player.getName() + "_" + npc.getParameters().idname())) return;
+
+                            // Logging the fact that one NPC was spawned for a player.
+                            DLog.info("[" + player.getName() + "] <= [" + npc.getParameters().idname() + "] (NPC LOG)");
+                            npc.despawn(player);
+                            Bukkit.getScheduler().runTaskLater(Loader.getInstance(), () -> npc.spawn(player), 5);
+
+                            // Putting the player as true in the HashMap, this indicates that they can see a specific NPC.
+                            NPCRegistery.idfk.put(player.getName() + "_" + npc.getParameters().idname(), true);
+                        }
+                    }
+                });
+            }, 10, 20);
+        }
     }
 
     public static class PlayerClickNPCEvent extends Event implements Cancellable {
