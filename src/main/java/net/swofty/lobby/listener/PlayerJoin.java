@@ -3,6 +3,7 @@ package net.swofty.lobby.listener;
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
 import net.swofty.lobby.Data;
 import net.swofty.lobby.Loader;
+import net.swofty.lobby.command.commands.Command_wipestats;
 import net.swofty.lobby.manager.PlayerManager;
 import net.swofty.lobby.npc.NPC;
 import net.swofty.lobby.npc.NPCRegistery;
@@ -26,6 +27,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scoreboard.DisplaySlot;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerJoin implements Listener {
     @EventHandler
@@ -36,6 +39,7 @@ public class PlayerJoin implements Listener {
 
         player.sendMessage(" ");
         player.setGameMode(GameMode.SURVIVAL);
+        player.resetTitle();
 
         try {
 
@@ -49,10 +53,21 @@ public class PlayerJoin implements Listener {
 
         }
 
+        try {
+
+            Command_wipestats.isSure.remove(player);
+
+        } catch (Exception e) {
+
+        }
+
         Data.startLoginProcess(player);
         Data.reloadRank(player);
         Data.editData(player.getPlayer(), "parkour", "none");
         Data.editData(player, "checkpoint", "1");
+        Data.editData(player, "parkour-cp1", "0");
+        Data.editData(player, "parkour-cp2", "0");
+        Data.editData(player, "parkour-cp3", "0");
 
         Boolean hidden = Boolean.valueOf(Data.getData(player, "hidden-players"));
         Items.giveSpawnItems(player, hidden);
@@ -77,10 +92,10 @@ public class PlayerJoin implements Listener {
         EntityArmorStand h7 = new Hologram("§bThe Delivery Man", player, new Location(Bukkit.getWorld("world"), 24.5, 82.4, 34.5), false).send();
         EntityArmorStand h8 = new Hologram("§e&lRIGHT CLICK", player, new Location(Bukkit.getWorld("world"), 24.5, 82, 10.5), false).send();
         EntityArmorStand h9 = new Hologram("§bTutorial", player, new Location(Bukkit.getWorld("world"), 24.5, 82.4, 10.5), false).send();
-        EntityArmorStand h10 = new Hologram("§e§lCLICK", player, new Location(Bukkit.getWorld("world"), 20.5, 80.9, 44.5), false).send();
-        EntityArmorStand h11 = new Hologram("§bMystery Vault", player, new Location(Bukkit.getWorld("world"), 20.5, 81.2, 44.5), false).send();
-        EntityArmorStand h12 = new Hologram("§e§lCLICK", player, new Location(Bukkit.getWorld("world"), 20.5, 80.9, 0.5), false).send();
-        EntityArmorStand h13 = new Hologram("§bMystery Vault", player, new Location(Bukkit.getWorld("world"), 20.5, 81.2, 0.5), false).send();
+        EntityArmorStand h10 = new Hologram("§e§lCLICK", player, new Location(Bukkit.getWorld("world"), 20.5, 81, 44.5), false).send();
+        EntityArmorStand h11 = new Hologram("§bMystery Vault", player, new Location(Bukkit.getWorld("world"), 20.5, 81.3, 44.5), false).send();
+        EntityArmorStand h12 = new Hologram("§e§lCLICK", player, new Location(Bukkit.getWorld("world"), 20.5, 81, 0.5), false).send();
+        EntityArmorStand h13 = new Hologram("§bMystery Vault", player, new Location(Bukkit.getWorld("world"), 20.5, 81.3, 0.5), false).send();
 
 
         player.setPlayerListName(new PlayerManager(player).getRankPrefix() + player.getName());
@@ -89,16 +104,20 @@ public class PlayerJoin implements Listener {
 
         NPCRegistery.rotationTaskMap.put(player.getUniqueId(), Loader.getInstance().startRotating(player));
 
-        NPCRegistery.rotationTaskMap.put(player.getUniqueId(), Loader.getInstance().startRotating(player));
+        List<String> viewing = new ArrayList<>();
 
         for(NPC npc : NPC.getNpcs()) {
             npc.spawn(player);
-            if (npc.getLocation().distance(player.getLocation()) > 100) {
-                NPCRegistery.idfk.put(player.getName() + "_" + npc.getParameters().idname(), false);
+            if(npc.getLocation().distance(player.getLocation()) > 100) {
+
+                // NPCRegistery.idfk.put(player.getName() + "_" + npc.getParameters().idname(), false);
             } else {
-                NPCRegistery.idfk.put(player.getName() + "_" + npc.getParameters().idname(), true);
+                viewing.add(npc.getParameters().idname());
+                // NPCRegistery.idfk.put(player.getName() + "_" + npc.getParameters().idname(), true);
             }
         }
+
+        NPCRegistery.VIEWING_NPCS.put(player.getName(), viewing);
 
         switch (new PlayerManager(player).getRank()) {
 

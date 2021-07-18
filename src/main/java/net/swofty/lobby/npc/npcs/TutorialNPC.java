@@ -59,7 +59,6 @@ public class TutorialNPC extends NPC {
 
                 tutorial1.remove(event.getPlayer());
                 tutorial2.add(event.getPlayer());
-                event.getPlayer().sendMessage(" ");
                 event.getPlayer().sendMessage("§e§lYou can also");
                 event.getPlayer().sendMessage("§bright-click one of the NPCs near the portal.");
                 event.getPlayer().sendMessage(" ");

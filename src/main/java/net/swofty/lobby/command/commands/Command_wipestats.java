@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @CommandParameters(usage = "/<command> <args>", permission = "rank.admin", description = "Deletes your statistics", inGameOnly = true)
 public class Command_wipestats extends AbstractCommand {
 
-    ArrayList<Player> isSure = new ArrayList<>();
+    public static ArrayList<Player> isSure = new ArrayList<>();
 
     @Override
     public void run(CommandSource sender, String[] args) {

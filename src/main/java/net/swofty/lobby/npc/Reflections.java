@@ -50,15 +50,14 @@ public class Reflections {
 
     /**
      * Gets every class within the specified package
+     *
      * @param pkg The package to search within
      * @return A List of classes within the package
      */
-    public static List<Class<?>> getClassesInPackage(String pkg)
-    {
+    public static List<Class<?>> getClassesInPackage(String pkg) {
         String directoryPackage = pkg.replace(".",
                 File.separator);
-        try
-        {
+        try {
             List<Path> paths = Files.find(Paths.get(new File("./").getAbsolutePath()),
                     Integer.MAX_VALUE,
                     (path, basicFileAttributes) ->
@@ -70,8 +69,7 @@ public class Reflections {
                     })
                     .collect(Collectors.toList());
             List<Class<?>> classes = new ArrayList<>();
-            for (Path path : paths)
-            {
+            for (Path path : paths) {
                 File file = path.toFile();
                 if (!path.toString().endsWith(".java"))
                     continue;
@@ -80,9 +78,7 @@ public class Reflections {
                 classes.add(c);
             }
             return classes;
-        }
-        catch (IOException | ClassNotFoundException ex)
-        {
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         return null;
@@ -90,17 +86,16 @@ public class Reflections {
 
     /**
      * Gets every class of the specified type within a package
-     * @param pkg The package to search within
+     *
+     * @param pkg   The package to search within
      * @param clazz The type of class to search for
-     * @param <T> The class type
+     * @param <T>   The class type
      * @return A List of all classes within the package that belong to the class provided
      */
-    public static <T> List<Class<? extends T>> getSubclassesInPackage(String pkg, Class<T> clazz)
-    {
+    public static <T> List<Class<? extends T>> getSubclassesInPackage(String pkg, Class<T> clazz) {
         String directoryPackage = pkg.replace(".",
                 File.separator);
-        try
-        {
+        try {
             List<Path> paths = Files.find(Paths.get(new File("./").getAbsolutePath()),
                     Integer.MAX_VALUE,
                     (path, basicFileAttributes) ->
@@ -112,8 +107,7 @@ public class Reflections {
                     })
                     .collect(Collectors.toList());
             List<Class<? extends T>> classes = new ArrayList<>();
-            for (Path path : paths)
-            {
+            for (Path path : paths) {
                 File file = path.toFile();
                 if (!path.toString().endsWith(".java"))
                     continue;
@@ -125,9 +119,7 @@ public class Reflections {
                     classes.add((Class<? extends T>) c);
             }
             return classes;
-        }
-        catch (IOException | ClassNotFoundException ex)
-        {
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         return null;
@@ -135,8 +127,9 @@ public class Reflections {
 
     /**
      * Get classes of a type globally
+     *
      * @param clazz The type of class to search for
-     * @param <T> The class type
+     * @param <T>   The class type
      * @return A List of all classes that belong to the class provided
      */
     public static <T> List<Class<? extends T>> getSubclasses(Class<T> clazz) {
@@ -168,8 +161,7 @@ public class Reflections {
                 classes.add((Class<? extends T>) c);
             }
             return classes;
-        }
-        catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         return null;

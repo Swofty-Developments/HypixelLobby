@@ -127,6 +127,24 @@ public class Runnable {
 
                             player.sendMessage("§a§lYou reached §e§lCheckpoint #1 §a§lafter §e§l" + formatted);
                             Data.editData(player, "checkpoint", "2");
+                            Data.editData(player, "parkour-cp1", String.valueOf(System.currentTimeMillis()));
+
+                            if (Data.getData(player, "parkour-cp1-best").equals("0")) {
+                                player.sendMessage("§7You finished this part of the parkour in §6" + formatted);
+                                Data.editData(player, "parkour-cp1-best", String.valueOf(System.currentTimeMillis() - Long.parseLong(Data.getData(player, "parkour"))));
+                            } else if (!((Long.parseLong(Data.getData(player, "parkour-cp1-best"))) < (millis))) {
+                                long millis2 = Long.parseLong(Data.getData(player, "parkour-cp1-best"));
+                                SimpleDateFormat sdf2 = new SimpleDateFormat("mm:ss.SSS");
+                                String formatted2 = sdf2.format(new Date(millis2));
+                                player.sendMessage("§7You finished this part of the parkour in §6" + formatted + " §7and beat your personal best of " + formatted2);
+                                Data.editData(player, "parkour-cp1-best", String.valueOf(millis));
+                            } else {
+                                long millis2 = Long.parseLong(Data.getData(player, "parkour-cp1-best"));
+                                SimpleDateFormat sdf2 = new SimpleDateFormat("mm:ss.SSS");
+                                String formatted2 = sdf2.format(new Date(millis2));
+                                player.sendMessage("§7You finished this part of the parkour in " + formatted + " §7(personal best: " + formatted2 + ").");
+                            }
+
                         }
                     }
 
@@ -137,8 +155,29 @@ public class Runnable {
                             SimpleDateFormat sdf = new SimpleDateFormat("mm:ss.SSS");
                             String formatted = sdf.format(new Date(millis));
 
+                            long millis2 = System.currentTimeMillis() - Long.parseLong(Data.getData(player, "parkour-cp1"));
+                            SimpleDateFormat sdf2 = new SimpleDateFormat("mm:ss.SSS");
+                            String formatted2 = sdf2.format(new Date(millis2));
+
                             player.sendMessage("§a§lYou reached §e§lCheckpoint #2 §a§lafter §e§l" + formatted);
                             Data.editData(player, "checkpoint", "3");
+                            Data.editData(player, "parkour-cp2", String.valueOf(System.currentTimeMillis()));
+
+                            if (Data.getData(player, "parkour-cp2-best").equals("0")) {
+                                player.sendMessage("§7You finished this part of the parkour in §6" + formatted2);
+                                Data.editData(player, "parkour-cp2-best", String.valueOf(millis2));
+                            } else if (!(Long.parseLong(Data.getData(player, "parkour-cp2-best")) < (millis2))) {
+                                long millis3 = Long.parseLong(Data.getData(player, "parkour-cp2-best"));
+                                SimpleDateFormat sdf3 = new SimpleDateFormat("mm:ss.SSS");
+                                String formatted3 = sdf3.format(new Date(millis3));
+                                player.sendMessage("§7You finished this part of the parkour in §6" + formatted2 + " §7and beat your personal best of " + formatted3);
+                                Data.editData(player, "parkour-cp2-best", String.valueOf(millis2));
+                            } else {
+                                long millis3 = Long.parseLong(Data.getData(player, "parkour-cp2-best"));
+                                SimpleDateFormat sdf3 = new SimpleDateFormat("mm:ss.SSS");
+                                String formatted3 = sdf3.format(new Date(millis3));
+                                player.sendMessage("§7You finished this part of the parkour in " + formatted2 + " §7(personal best: " + formatted3 + ").");
+                            }
                         }
                     }
 
@@ -154,8 +193,7 @@ public class Runnable {
                                 Data.editData(player, "parkour-best", String.valueOf(millis));
                                 Data.editData(player, "checkpoint", "1");
                                 Data.editData(player, "parkour", "none");
-                                return;
-                            }
+                            } else
 
                             if (millis < Long.parseLong(Data.getData(player, "parkour-best"))) {
                                 long millis2 = Long.parseLong(Data.getData(player, "parkour-best"));
@@ -175,6 +213,31 @@ public class Runnable {
                                 Data.editData(player, "parkour", "none");
                                 Items.giveSpawnItems(player, Boolean.valueOf(Data.getData(player, "hidden-items")));
                             }
+
+                            long millis2 = (System.currentTimeMillis() - Long.parseLong(Data.getData(player, "parkour-cp2")));
+                            SimpleDateFormat sdf2 = new SimpleDateFormat("mm:ss.SSS");
+                            String formatted2 = sdf2.format(new Date(millis2));
+
+                            if (Data.getData(player, "parkour-cp3-best").equals("0")) {
+                                player.sendMessage("§7You finished this part of the parkour in §6" + formatted2);
+                                Data.editData(player, "parkour-cp3-best", String.valueOf(millis2));
+                            } else if (!(Long.parseLong(Data.getData(player, "parkour-cp3-best")) < (millis2))) {
+                                long millis3 = Long.parseLong(Data.getData(player, "parkour-cp3-best"));
+                                SimpleDateFormat sdf3 = new SimpleDateFormat("mm:ss.SSS");
+                                String formatted3 = sdf3.format(new Date(millis3));
+                                player.sendMessage("§7You finished this part of the parkour in §6" + formatted2 + " §7and beat your personal best of " + formatted3);
+                                Data.editData(player, "parkour-cp3-best", String.valueOf(millis2));
+                            } else {
+                                long millis3 = Long.parseLong(Data.getData(player, "parkour-cp3-best"));
+                                SimpleDateFormat sdf3 = new SimpleDateFormat("mm:ss.SSS");
+                                String formatted3 = sdf3.format(new Date(millis3));
+                                player.sendMessage("§7You finished this part of the parkour in " + formatted2 + " §7(personal best: " + formatted3 + ").");
+                            }
+
+                            Data.editData(player, "parkour-cp1", "0");
+                            Data.editData(player, "parkour-cp2", "0");
+                            Data.editData(player, "parkour-cp3", "0");
+
                         } else {
                             boolean time2 = System.currentTimeMillis() % 2 == 0;
                             if (time2) {
@@ -185,6 +248,6 @@ public class Runnable {
 
                 }
             }
-        }.runTaskTimerAsynchronously(Loader.getInstance(), 0, 6);
+        }.runTaskTimerAsynchronously(Loader.getInstance(), 0, 2);
     }
 }

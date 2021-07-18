@@ -47,9 +47,17 @@ public class Data {
                 playerData.createSection("rank");
                 playerData.createSection("lastlogin");
                 playerData.createSection("parkour");
+                playerData.createSection("parkour-cp1");
+                playerData.createSection("parkour-cp2");
+                playerData.createSection("parkour-cp3");
                 playerData.createSection("checkpoint");
                 playerData.createSection("hidden-players");
                 playerData.createSection("parkour-best");
+
+                playerData.createSection("parkour-cp1-best");
+                playerData.createSection("parkour-cp2-best");
+                playerData.createSection("parkour-cp3-best");
+
                 playerData.createSection("mystery-dust");
                 playerData.createSection("achievements");
                 playerData.createSection("level");
@@ -63,6 +71,12 @@ public class Data {
                 playerData.set("checkpoint", "1");
                 playerData.set("hidden-players", "false");
                 playerData.set("parkour-best", "0");
+                playerData.set("parkour-cp1-best", "0");
+                playerData.set("parkour-cp2-best", "0");
+                playerData.set("parkour-cp3-best", "0");
+                playerData.set("parkour-cp1", "0");
+                playerData.set("parkour-cp2", "0");
+                playerData.set("parkour-cp3", "0");
                 playerData.set("mystery-dust", "0");
                 playerData.set("achievements", "0");
                 playerData.set("level", "1");
