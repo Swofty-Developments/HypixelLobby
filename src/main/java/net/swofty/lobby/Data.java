@@ -54,6 +54,8 @@ public class Data {
                 playerData.createSection("achievements");
                 playerData.createSection("level");
                 playerData.createSection("build");
+                playerData.createSection("xp");
+                playerData.createSection("daily-reward-claimed");
 
                 playerData.set("rank", "default");
                 playerData.set("lastlogin", System.currentTimeMillis());
@@ -65,6 +67,8 @@ public class Data {
                 playerData.set("achievements", "0");
                 playerData.set("level", "1");
                 playerData.set("build", "false");
+                playerData.set("xp", "0");
+                playerData.set("daily-reward-claimed", "none");
 
                 playerData.save(f);
             } catch (Exception exception) {
@@ -109,35 +113,60 @@ public class Data {
         UserManager userManager = api.getUserManager();
 
         if (usersInGroupDefault.contains(userManager.getUser(player.getUniqueId()))) {
-            Data.editData(player, "rank", "default");
+
+            if (!Data.getData(player, "rank").equals("default")) {
+                Data.editData(player, "rank", "default");
+                player.sendMessage("§eYour rank was synced to the network!");
+            }
         } else
 
         if (usersInGroupVIP.contains(userManager.getUser(player.getUniqueId()))) {
-            Data.editData(player, "rank", "vip");
+            if (!Data.getData(player, "rank").equals("vip")) {
+                Data.editData(player, "rank", "vip");
+                player.sendMessage("§eYour rank was synced to the network!");
+            }
         } else
 
         if (usersInGroupVIPPlus.contains(userManager.getUser(player.getUniqueId()))) {
-            Data.editData(player, "rank", "vip+");
+            if (!Data.getData(player, "rank").equals("vip+")) {
+                Data.editData(player, "rank", "vip+");
+                player.sendMessage("§eYour rank was synced to the network!");
+            }
         } else
 
         if (usersInGroupMVPPlus.contains(userManager.getUser(player.getUniqueId()))) {
-            Data.editData(player, "rank", "mvp+");
+            if (!Data.getData(player, "rank").equals("mvp+")) {
+                Data.editData(player, "rank", "mvp+");
+                player.sendMessage("§eYour rank was synced to the network!");
+            }
         } else
 
         if (usersInGroupMVPPlusPlus.contains(userManager.getUser(player.getUniqueId()))) {
-            Data.editData(player, "rank", "mvp++");
+            if (!Data.getData(player, "rank").equals("mvp++")) {
+                Data.editData(player, "rank", "mvp++");
+                player.sendMessage("§eYour rank was synced to the network!");
+            }
         } else
 
         if (usersInGroupHelper.contains(userManager.getUser(player.getUniqueId()))) {
-            Data.editData(player, "rank", "helper");
+            if (!Data.getData(player, "rank").equals("helper")) {
+                Data.editData(player, "rank", "helper");
+                player.sendMessage("§eYour rank was synced to the network!");
+            }
         } else
 
         if (usersInGroupMod.contains(userManager.getUser(player.getUniqueId()))) {
-            Data.editData(player, "rank", "mod");
+            if (!Data.getData(player, "rank").equals("mod")) {
+                Data.editData(player, "rank", "mod");
+                player.sendMessage("§eYour rank was synced to the network!");
+            }
         } else
 
         if (usersInGroupAdmin.contains(userManager.getUser(player.getUniqueId()))) {
-            Data.editData(player, "rank", "admin");
+            if (!Data.getData(player, "rank").equals("admin")) {
+                Data.editData(player, "rank", "admin");
+                player.sendMessage("§eYour rank was synced to the network!");
+            }
         }
 
     }

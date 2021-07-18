@@ -4,6 +4,7 @@ import net.swofty.lobby.Data;
 import net.swofty.lobby.util.BookGUI;
 import net.swofty.lobby.util.Util;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 public class PlayerManager implements HypixelPlayer {
@@ -95,4 +96,30 @@ public class PlayerManager implements HypixelPlayer {
 
         BookGUI.openBook(BookGUI.getRankChangeBook(rank), player);
     }
+
+    @Override
+    public void addXP(int XP) {
+        int totalXP = XP + Integer.parseInt(Data.getData(player, "xp"));
+
+        if (totalXP > (Integer.parseInt(Data.getData(player, "level")) + 5000 + (Integer.parseInt(Data.getData(player, "level")) * 750))) {
+            Data.editData(player, "level", String.valueOf(Integer.parseInt(Data.getData(player, "level")) + 1));
+            Data.editData(player, "xp", "0");
+            sendMessage("§a▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃");
+            sendMessage("                              §a§ka§r §6LEVEL UP! §a§k9");
+            sendMessage(" ");
+            sendMessage("                   §7You are now §3Hypixel Level §a" + Data.getData(player, "level"));
+            sendMessage(" ");
+            sendMessage("                   §66.0x §7Coin Multiplier §aUnlocked§7!");
+            sendMessage(" ");
+            sendMessage("                  §eClaim your reward in the lobby!");
+            sendMessage("§a▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃");
+            player.playSound(player.getLocation(), Sound.LEVEL_UP, 100, 100);
+            player.setLevel(Integer.parseInt(Data.getData(player, "level")));
+
+        } else {
+            Data.editData(player, "xp", String.valueOf(Integer.parseInt(Data.getData(player, "xp")) + XP));
+        }
+    }
+
+
 }

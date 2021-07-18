@@ -1,9 +1,6 @@
 package net.swofty.lobby.gui;
 
 public abstract class PaginatedGUI extends GUI {
-    public PaginatedGUI(PlayerMenuUtility playerMenuUtility) {
-        super(playerMenuUtility);
-    }
 
     protected int page = 0;
     protected int maxItemsPerPage = 45;

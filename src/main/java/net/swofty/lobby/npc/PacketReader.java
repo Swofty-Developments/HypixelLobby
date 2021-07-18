@@ -33,9 +33,11 @@ public class PacketReader {
     }
 
     public void uninject() {
-        if (channel.pipeline().get("PacketInjector") != null) {
-            channel.pipeline().remove("PacketInjector");
-        }
+        try {
+            if (channel.pipeline().get("PacketInjector") != null) {
+                channel.pipeline().remove("PacketInjector");
+            }
+        } catch (Exception e){}
     }
 
 

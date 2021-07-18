@@ -29,6 +29,8 @@ public class PlayerJoin implements Listener {
     public void onJoin(PlayerJoinEvent event) throws IOException {
         Player player = event.getPlayer();
 
+        player.sendMessage(" ");
+
         Data.startLoginProcess(player);
         Data.reloadRank(player);
         Data.editData(player.getPlayer(), "parkour", "none");
@@ -49,9 +51,11 @@ public class PlayerJoin implements Listener {
 
         new Hologram("§e§lFIRST LOOK TRAILER", player, new Location(Bukkit.getWorld("world"), 37.5, 87, 26.5), false).send();
         new Hologram("§b§lHYTALE", player, new Location(Bukkit.getWorld("world"), 37.5, 87.4, 26.5), false).send();
-        new Hologram("§bSkyblock", player, new Location(Bukkit.getWorld("world"), 7.5, 81.7, 22.5), false).send();
+        new Hologram("§bSkyblock", player, new Location(Bukkit.getWorld("world"), 7.5, 82.2, 22.5), false).send();
         new Hologram("§e&lParkour Challenge", player, new Location(Bukkit.getWorld("world"), 41.5, 79.5, 55.5), false).send();
         new Hologram("§a&lStart", player, new Location(Bukkit.getWorld("world"), 41.5, 79.15, 55.5), false).send();
+        new Hologram("§e&lRIGHT CLICK", player, new Location(Bukkit.getWorld("world"), 24.5, 82, 34.5), false).send();
+        new Hologram("§bThe Delivery Man", player, new Location(Bukkit.getWorld("world"), 24.5, 82.4, 34.5), false).send();
 
         new PacketReader(player).inject();
 

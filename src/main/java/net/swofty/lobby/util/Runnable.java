@@ -110,6 +110,8 @@ public class Runnable {
                             if (Data.getData(player, "parkour-best").equals("0")) {
                                 player.sendMessage("§a§lYour got a time of §e§l" + formatted + "§a§l! Try again to get an even faster time");
                                 Data.editData(player, "parkour-best", String.valueOf(millis));
+                                Data.editData(player, "checkpoint", "1");
+                                Data.editData(player, "parkour", "none");
                                 return;
                             }
 

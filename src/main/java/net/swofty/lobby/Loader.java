@@ -14,6 +14,7 @@ import net.swofty.lobby.listener.*;
 import net.swofty.lobby.manager.PlayerManager;
 import net.swofty.lobby.npc.NPC;
 import net.swofty.lobby.npc.NPCRegistery;
+import net.swofty.lobby.npc.npcs.DeliveryManNPC;
 import net.swofty.lobby.npc.npcs.ExampleNPC;
 import net.swofty.lobby.npc.npcs.HytaleNPC;
 import net.swofty.lobby.npc.npcs.SkyblockNPC;
@@ -93,6 +94,7 @@ public final class Loader extends JavaPlugin {
         nr.register(new ExampleNPC());
         nr.register(new HytaleNPC());
         nr.register(new SkyblockNPC());
+        nr.register(new DeliveryManNPC());
     }
 
     public BukkitTask startNPCScheduler() {
@@ -132,6 +134,10 @@ public final class Loader extends JavaPlugin {
         cl.register(new Command_gm());
         cl.register(new Command_parkour());
         cl.register(new Command_build());
+        cl.register(new Command_levelinfo());
+        cl.register(new Command_addxp());
+        cl.register(new Command_heal());
+        cl.register(new Command_wipestats());
     }
     private void loadListeners() {
         PluginManager m = this.getServer().getPluginManager();

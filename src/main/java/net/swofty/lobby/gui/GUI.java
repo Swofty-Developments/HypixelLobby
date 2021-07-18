@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
@@ -20,13 +21,9 @@ import java.util.List;
 import java.util.UUID;
 
 public abstract class GUI implements InventoryHolder {
-    public PlayerMenuUtility playerMenuUtility;
+    protected Player player;
     public Inventory inventory;
     public ItemStack FILLER_GLASS = makeItem(Material.STAINED_GLASS_PANE, " ", 1, 15);
-
-    public GUI(PlayerMenuUtility playerMenuUtility) {
-        this.playerMenuUtility = playerMenuUtility;
-    }
 
     public abstract String getTitle();
 
@@ -38,10 +35,11 @@ public abstract class GUI implements InventoryHolder {
 
     public abstract void setItems();
 
-    public void open() {
+    public void open(Player player) {
+        this.player = player;
         inventory = Bukkit.createInventory(this, getSize(), getTitle());
         this.setItems();
-        playerMenuUtility.getOwner().openInventory(inventory);
+        player.openInventory(inventory);
     }
 
     @Override

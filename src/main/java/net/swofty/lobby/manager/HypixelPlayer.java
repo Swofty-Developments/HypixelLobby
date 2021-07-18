@@ -10,4 +10,6 @@ public interface HypixelPlayer {
     void sendMessage(String s);
 
     void setRank(String rank);
+
+    void addXP(int XP);
 }

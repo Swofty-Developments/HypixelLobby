@@ -28,9 +28,17 @@ public class ItemInteractEvent implements Listener {
     public void onEntityInteract(PlayerInteractEvent event) throws IOException {
 
         Player player = event.getPlayer();
-        ItemStack item = player.getItemInHand();
+        ItemStack item;
+        try {
+            item = player.getItemInHand();
 
-        if (item==null)return;
+            if (item == null || !item.hasItemMeta()) {
+                return;
+            }
+        } catch (Exception e) {
+            return;
+        }
+
         switch (item.getType()) {
             case BED:
                 player.performCommand("parkour cancel");
@@ -43,7 +51,7 @@ public class ItemInteractEvent implements Listener {
 
         if (item.getItemMeta().getDisplayName().contains("Hidden")) {
 
-            if (Data.getData(player, "parkour") != "none") {
+            if (!Data.getData(player, "parkour").equals("none")) {
                 Data.editData(player, "hidden-players", "false");
                 Items.giveParkourItems(player, false);
                 player.sendMessage("§aPlayer visibility enabled!");
@@ -56,7 +64,7 @@ public class ItemInteractEvent implements Listener {
 
         } else if (item.getItemMeta().getDisplayName().contains("Visible")) {
 
-            if (Data.getData(player, "parkour") != "none") {
+            if (!Data.getData(player, "parkour").equals("none")) {
                 Data.editData(player, "hidden-players", "false");
                 Items.giveParkourItems(player, true);
                 player.sendMessage("§aPlayer visibility disabled!");

@@ -6,9 +6,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public class ExampleGUI extends GUI {
-    public ExampleGUI(PlayerMenuUtility playerMenuUtility) {
-        super(playerMenuUtility);
-    }
 
     @Override
     public String getTitle() {

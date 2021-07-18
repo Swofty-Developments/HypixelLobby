@@ -86,6 +86,22 @@ public class BookGUI {
         return book;
     }
 
+    @SneakyThrows
+    public static ItemStack getSocialMediasBook() {
+        ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
+        BookMeta meta = (BookMeta) book.getItemMeta();
+
+        List<IChatBaseComponent> pages = (List<IChatBaseComponent>) CraftMetaBook.class.getDeclaredField("pages").get(meta);
+        TextComponent text = new TextComponent(Util.colorize("\nKeep up with Hypixel\nnews + get free &6&l4X\n&6&lCoin Boosters &rby\nfollowing us!\n\nClick to follow:\n- &9&lFacebook\n- &d&lInstagram\n- &c&lYouTube\n- &3&lTwitter\n\nYou can claim these\nrewards at any time in\nthe Delivery Man"));
+        IChatBaseComponent page = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(text));
+        pages.add(page);
+        meta.setTitle("Social Rewards");
+        meta.setAuthor("Server");
+        book.setItemMeta(meta);
+
+        return book;
+    }
+
     @SuppressWarnings("unchecked")
     @SneakyThrows
     public static ItemStack getErrorBook() {
