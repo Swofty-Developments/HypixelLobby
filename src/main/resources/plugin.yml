@@ -1,5 +1,5 @@
-name: Dnum
+name: HypixelLobby
 version: ${project.version}
-main: net.maploop.dnum.Dnum
-authors: [ Maploop ]
-description: Awesome plugin made with the Dnum framework!
+main: net.swofty.lobby.Loader
+authors: [ Swofty ]
+description: Pog?
