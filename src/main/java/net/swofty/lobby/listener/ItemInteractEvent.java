@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.player.*;
@@ -33,6 +34,10 @@ public class ItemInteractEvent implements Listener {
 
         Player player = event.getPlayer();
         ItemStack item;
+
+        if (event.getAction().equals(Action.LEFT_CLICK_AIR) || event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
+            return;
+        }
 
         try {
             if (event.getClickedBlock().getType() == Material.ENDER_CHEST) {

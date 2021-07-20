@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.maploop</groupId>
-    <artifactId>Dnum</artifactId>
+    <groupId>net.swofty</groupId>
+    <artifactId>HypixelLobby</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>Dnum</name>
+    <name>HypixelLobby</name>
 
-    <description>Awesome plugin made with the Dnum framework!</description>
+    <description>HypixelLobby recreation</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -65,6 +65,10 @@
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>alvinb-repo</id>
+            <url>http://repo.bringholm.com/</url>
         </repository>
     </repositories>
 

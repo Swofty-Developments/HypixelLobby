@@ -126,7 +126,7 @@ public abstract class GUI implements InventoryHolder {
         return item;
     }
 
-    public static ItemStack makeTexturedSkullItem(String texture, String displayname, int amount, String... lore) {
+    public static ItemStack makeTexturedSkullItem(String texture, String displayname, int amount, String lore2) {
         ItemStack item = new ItemStack(Material.SKULL_ITEM, amount, (short) 3);
         if (texture == null) return item;
 
@@ -141,8 +141,9 @@ public abstract class GUI implements InventoryHolder {
         } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
             e.printStackTrace();
         }
+        String[] lore1 = lore2.split("\n");
         itemMeta.setDisplayName(displayname);
-        itemMeta.setLore(Arrays.asList(lore));
+        itemMeta.setLore(Arrays.asList(lore1));
         item.setItemMeta(itemMeta);
         return item;
     }

@@ -125,6 +125,7 @@ public final class Loader extends JavaPlugin {
         m.registerEvents(new ItemInteractEvent(), this);
         m.registerEvents(new CommandPreProcess(), this);
         m.registerEvents(new PlayerChatEvent(), this);
+        m.registerEvents(new NameTag(), this);
     }
 
     public void LuckpermsListener() {
@@ -141,7 +142,12 @@ public final class Loader extends JavaPlugin {
     private void nodeAdd(NodeAddEvent event) {
         if (event.isUser() && event.getNode().getType() == NodeType.INHERITANCE) {
             Bukkit.getPlayer(event.getTarget().getFriendlyName()).sendMessage(Util.colorize("&cAs your rank was changed you have lost your plus color"));
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "lp user " + event.getTarget().getFriendlyName() + " meta clear");
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "lp user " + event.getTarget().getFriendlyName() + " meta clear");
+                }
+            }.runTaskLater(this, 1);
 
             Data.reloadRank(Bukkit.getPlayer(event.getTarget().getFriendlyName()));
         }
@@ -150,7 +156,13 @@ public final class Loader extends JavaPlugin {
     private void nodeRemove(NodeRemoveEvent event) {
         if (event.isUser() && event.getNode().getType() == NodeType.INHERITANCE) {
             Bukkit.getPlayer(event.getTarget().getFriendlyName()).sendMessage(Util.colorize("&cAs your rank was changed you have lost your plus color"));
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "lp user " + event.getTarget().getFriendlyName() + " meta clear");
+
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "lp user " + event.getTarget().getFriendlyName() + " meta clear");
+                }
+            }.runTaskLater(this, 1);
 
             Data.reloadRank(Bukkit.getPlayer(event.getTarget().getFriendlyName()));
         }
