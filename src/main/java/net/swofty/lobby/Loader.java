@@ -30,14 +30,6 @@ import org.bukkit.scoreboard.DisplaySlot;
 
 import java.lang.reflect.Field;
 
-/**
- * Dnum framework, a simple framework with a lot of useful utilities!
- * Made for those who are lazy.
- * This framework includes: An easy to use command framework,
- * An easy to use GUI framework, and useful things in utilities!
- *
- * @author Maploop
- */
 public final class Loader extends JavaPlugin {
     private static Loader dnum;
     public CommandMap commandMap;
